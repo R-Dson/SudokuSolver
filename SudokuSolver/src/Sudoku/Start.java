@@ -7,7 +7,9 @@ public class Start {
 		Solver.solve(s);
 		GuiBuilder gb = new GuiBuilder();
 		
-		System.out.println(Solver.checkSquare(s.getMatrix(), 9, 3, 3));
+		if(Solver.solve(s)) {
+			s.print();
+		}
 	}
 
 }

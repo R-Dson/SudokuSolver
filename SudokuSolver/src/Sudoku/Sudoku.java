@@ -15,7 +15,7 @@ public class Sudoku {
 		
 		//remove later
 		//x och y är från 0 till 8, värdet är 1 till 9 som sudoku ska vara.
-		
+		//saknar lösning
 		setValuexy(2, 0, 8);
 		setValuexy(5, 0, 9);
 		setValuexy(7, 0, 6);
@@ -49,6 +49,7 @@ public class Sudoku {
 		setValuexy(6, 7, 1);
 		
 		setValuexy(6, 8, 4);
+
 		
 	}
 	
@@ -91,6 +92,23 @@ public class Sudoku {
 	 */
 	public int[][] getMatrix(){
 		return matrix;
+	}
+	
+	public void print() {
+		for(int row = 0; row < matrix.length; row++) {
+			for(int col = 0; col < matrix.length; col++) {
+				System.out.print(matrix[row][col] + " ");
+				if(col == 2 || col == 5) {
+					System.out.print(" | ");
+				}
+
+			}
+			if(row == 2 || row == 5) {
+				System.out.println("\n");
+				System.out.print("------------------------------");
+			}
+			System.out.println("\n");
+		}
 	}
 	
 }
