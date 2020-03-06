@@ -12,7 +12,6 @@ public class Sudoku {
 		for(int[] a : matrix) {
 			Arrays.fill(a, -1);
 		}
-		
 		//remove later
 		//x och y är från 0 till 8, värdet är 1 till 9 som sudoku ska vara.
 		//saknar lösning
@@ -49,8 +48,6 @@ public class Sudoku {
 		setValuexy(6, 7, 1);
 		
 		setValuexy(6, 8, 4);
-
-		
 	}
 	
 
@@ -60,8 +57,8 @@ public class Sudoku {
 	 * @param y
 	 * @return
 	 */
-	public int getValuexy (int x, int y){
-		return matrix[y][x];
+	public int getValuexy (int row, int col){
+		return matrix[row][col];
 	}
 	
 	/**
@@ -71,19 +68,16 @@ public class Sudoku {
 	 * @param val
 	 * @return
 	 */
-	public boolean setValuexy (int x, int y, int val){
-		
-		//kollar om rad existerar redan
-		boolean row = Solver.checkRow(matrix, val, y);
-		//kollar om kolumn existerar redan
-		boolean col = Solver.checkColumn(matrix, val, x);
-		
-		//antar värdet om allt är sant
-		if(matrix[y][x] == -1 && val > -1 && row && col) {
-			matrix[y][x] = val;
+	public void setValuexy (int row, int col, int val){
+			matrix[row][col] = val;
+	}
+	
+	public boolean checkAll(int value, int col, int row) {
+		if(checkRow(value, row) && checkColumn(value, col) && checkSquare(value, col, row)) {
 			return true;
+		}else {
+			return false;
 		}
-		return false;
 	}
 	
 	/**
@@ -110,5 +104,69 @@ public class Sudoku {
 			System.out.println("\n");
 		}
 	}
+  
+	public boolean checkRow(int number, int row) {
+		int occ = 0;
+		for (int i = 0; i < matrix.length; i++) {
+			if (matrix[row][i] == number) {
+				occ++;
+				if (occ >= 2) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 	
+	/**
+	 * 
+	 * @param matrix
+	 * @param number
+	 * @param col
+	 * @return
+	 */
+	public boolean checkColumn(int number, int col) {
+		int occ = 0;
+		for (int i = 0; i < matrix.length; i++) {
+			if (matrix[i][col] == number) {
+				occ++;
+				if (occ >= 2) {
+					return false;
+
+				}
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Return sant om numret existerar inom en kvadrat
+	 * 
+	 * @param matrix
+	 * @param number
+	 * @param col
+	 * @param row
+	 * @return
+	 */
+	public boolean checkSquare(int number, int col, int row) {
+		// x är vilken kvadrat vi ska kolla och y är vilken höjd kvadraten är i. Från 0
+		// till 2
+		int occ = 0;
+		int x = row / 3;
+		int y = col / 3;
+		// System.out.println(x);
+		// System.out.println(y);
+		for (int i = y * 3; i < 3 * (y + 1); i++) {
+			for (int j = x * 3; j < 3 * (x + 1); j++) {
+				if (matrix[j][i] == number) {
+					occ++;
+					if (occ == 2) {
+						return false;
+					}
+				}
+			}
+		}
+
+		return true;
+	}
 }
