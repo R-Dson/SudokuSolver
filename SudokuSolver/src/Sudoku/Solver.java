@@ -12,6 +12,7 @@ public class Solver {
 			for (int row = 0; row < 9; row++) {
 				for (int col = 0; col < 9; col++) {
 					if (s.checkAll(i, col, row) && firsttest) {
+
 						firsttest = true;
 					} else {
 						firsttest = false;
@@ -28,8 +29,8 @@ public class Solver {
 		}
 
 	}
-
-	private static boolean solveRec(Sudoku s) {
+          
+  private static boolean solveRec(Sudoku s) {
 		for (int row = 0; row < 9; row++) { // för varje rad
 			for (int col = 0; col < 9; col++) { // för varje col
 				if (s.getValuexy(row, col) == -1) { // om värde saknas
@@ -47,10 +48,12 @@ public class Solver {
 						s.setValuexy(row, col, -1);
 					}
 					return false;
+
 				}
 			}
 
 		}
+  
 		return true;
 	}
 

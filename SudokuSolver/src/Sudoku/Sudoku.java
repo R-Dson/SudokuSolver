@@ -12,9 +12,42 @@ public class Sudoku {
 		for(int[] a : matrix) {
 			Arrays.fill(a, -1);
 		}
-		matrix[0][0] = 6;
-		matrix[2][2] = 7;
-		matrix[2][1] = 2;
+		//remove later
+		//x och y är från 0 till 8, värdet är 1 till 9 som sudoku ska vara.
+		//saknar lösning
+		setValuexy(2, 0, 8);
+		setValuexy(5, 0, 9);
+		setValuexy(7, 0, 6);
+		setValuexy(8, 0, 2);
+		
+		setValuexy(3, 1, 5);
+		
+		setValuexy(0, 2, 1);
+		setValuexy(2, 2, 2);
+		setValuexy(3, 2, 5);
+		
+		setValuexy(3, 3, 2);
+		setValuexy(4, 3, 1);
+		setValuexy(7, 3, 9);
+
+		setValuexy(1, 4, 5);
+		setValuexy(6, 4, 6);
+		
+		setValuexy(0, 5, 6);
+		setValuexy(7, 5, 2);
+		setValuexy(8, 5, 8);
+		
+		setValuexy(0, 6, 4);
+		setValuexy(1, 6, 1);
+		setValuexy(3, 6, 6);
+		setValuexy(5, 6, 8);
+		
+		setValuexy(0, 7, 8);
+		setValuexy(1, 7, 6);
+		setValuexy(4, 7, 3);
+		setValuexy(6, 7, 1);
+		
+		setValuexy(6, 8, 4);
 	}
 	
 
@@ -71,7 +104,7 @@ public class Sudoku {
 			System.out.println("\n");
 		}
 	}
-	
+  
 	public boolean checkRow(int number, int row) {
 		int occ = 0;
 		for (int i = 0; i < matrix.length; i++) {
