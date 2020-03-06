@@ -1,6 +1,9 @@
 package Sudoku;
 
+import java.awt.Component;
+
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Solver {
 
@@ -57,8 +60,77 @@ public class Solver {
 		return true;
 	}
 
-	public static void createSudoku(JPanel panel) {
-		System.out.println("nice!");
+  public static void createSudoku(JPanel panel, Sudoku s) {
+	  int x = 0;
+	  int y = 0;
+		for(Component comp : panel.getComponents()) {
+			if(comp instanceof JTextField) {
+				
+				JTextField textf = (JTextField)comp;
+				
+				if(x % 9 == 0 && x != 0) {
+					y++;
+					x = 0;
+				}
+				if(y % 9 == 0 && y != 0) {
+					y = 0;
+				}
+				//System.out.println(x + " " + y);
+				int i = -1;
+				
+				try {
+					i = Integer.parseInt(textf.getText());
+				}
+				catch(Exception e) {
+					if(i != -1)
+						System.out.println("One or more values are invalid, they will be ignored.");
+				}
+				
+				s.setValuexy(y, x, i);
+
+				x++;
+			}
+		}
+		
+		
+		//löser sudokut
+		Solver.solve(s);
+		s.print();
+		
+		//skruver ut det i rutorna
+		Solver.matrixtopanels(panel, s);
+	}
+  
+	private static void matrixtopanels(JPanel panel, Sudoku s) {
+		int x = 0;
+		int y = 0;
+		for(Component comp : panel.getComponents()) {
+			if(comp instanceof JTextField) {
+				
+				JTextField textf = (JTextField)comp;
+				
+				if(x % 9 == 0 && x != 0) {
+					y++;
+					x = 0;
+				}
+				if(y % 9 == 0 && y != 0) {
+					y = 0;
+				}
+				textf.setText(Integer.toString(s.getMatrix()[x][y]));
+
+				x++;
+			}
+		}
+		
+	}
+
+	public static void clearSudoku(JPanel sudPanel) {
+		for(Component comp : sudPanel.getComponents()) {
+			if(comp instanceof JTextField) {
+				JTextField textf = (JTextField)comp;
+				textf.setText("");
+			}
+		}
 	}
 
 

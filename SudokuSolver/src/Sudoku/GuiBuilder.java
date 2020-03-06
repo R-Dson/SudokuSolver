@@ -6,9 +6,8 @@ import java.awt.GridLayout;
 import javax.swing.*;
 
 public class GuiBuilder {
+	
 	public GuiBuilder(Sudoku s) {
-		int[][] matrix = new int[9][9];
-		
 		
 		//fixar Jframe, rutan som kommer upp
 		JFrame frame = new JFrame("Sudoku Solver");		
@@ -27,7 +26,6 @@ public class GuiBuilder {
 				JTextField temp = new JTextField();
 				temp.setHorizontalAlignment(JTextField.CENTER);
 				sudPanel.add(temp);
-				temp.addActionListener(e -> s.setValuexy(0, 0, Integer.parseInt(temp.getText())));
 			}
 		}
 		//lägger till "sudokut" till rutan
@@ -42,11 +40,11 @@ public class GuiBuilder {
 		bottomPanel.add(bsolve, BorderLayout.WEST);
 		JButton bclear = new JButton("Clear");
 		bottomPanel.add(bclear, BorderLayout.EAST);
+		
 		pane.add(bottomPanel, BorderLayout.SOUTH);
 		
-
-		
-		bsolve.addActionListener(e -> Solver.createSudoku(sudPanel));
+		bsolve.addActionListener(e -> Solver.createSudoku(sudPanel, s));
+		bclear.addActionListener(e -> Solver.clearSudoku(sudPanel));
 		
 		
 		//gör den synlig efter den är byggd
