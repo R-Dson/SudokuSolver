@@ -7,6 +7,11 @@ import javax.swing.JTextField;
 
 public class Solver {
 
+	/**
+	 * Lösningen av sudokut
+	 * @param s
+	 * @return
+	 */
 	public static boolean solve(Sudoku s) {
 
 		// går igenom hela från 0 till 9
@@ -15,7 +20,6 @@ public class Solver {
 			for (int row = 0; row < 9; row++) {
 				for (int col = 0; col < 9; col++) {
 					if (s.checkAll(i, col, row) && firsttest) {
-
 						firsttest = true;
 					} else {
 						firsttest = false;
@@ -25,41 +29,84 @@ public class Solver {
 		}
 
 		if (firsttest) {
-			return solveRec(s);
+			return solveRec(s, 0, 0);
 		} else {
 			System.out.println("saknas lösning");
 			return false;
 		}
 
 	}
-          
-  private static boolean solveRec(Sudoku s) {
-		for (int row = 0; row < 9; row++) { // för varje rad
-			for (int col = 0; col < 9; col++) { // för varje col
-				if (s.getValuexy(row, col) == -1) { // om värde saknas
-					for (int value = 1; value <= 9; value++) { // alla värden 1-9
-						s.setValuexy(row, col, value);
-						if (s.checkAll(value, col, row)) {
-							boolean test = solveRec(s);
-							if (test) {
-								return true; // ändra här till en metod som kopierar matrisen och sparar den i en lista om man vill spara alla lösningar
-							}else {
-								// returnera false här för att gå igenom fler alternativ
-							}
-
-						}
-						s.setValuexy(row, col, -1);
+	
+	/**
+	 * vår Rekursiv algoritm
+	 * @param s
+	 * @param row
+	 * @param col
+	 * @return
+	 */
+	private static boolean solveRec(Sudoku s, int row, int col) {
+		int staticrow = row;
+		int staticcol = col;
+		
+		if (s.getValuexy(row, col) == -1) {
+			for (int value = 1; value <= 9; value++) {
+				
+				s.setValuexy(row, col, value);
+				
+				if (s.checkAll(value, col, row)) {
+					
+					if (row == 8 && col == 8) {
+						return true;
 					}
-					return false;
 
+					if (col == 8) {
+						col = -1;
+						row++;
+					}
+					
+					col++;
+					
+					if(solveRec(s, row, col)) {
+						return true;
+					}else {
+						s.resetValuexy(staticrow, staticcol);
+						row = staticrow;
+						col = staticcol;
+					}
 				}
+				s.resetValuexy(staticrow, staticcol);
+
+			}
+			return false;
+		}else {
+			
+			if (row == 8 && col == 8) {
+				return true;
 			}
 
+			if (col == 8) {
+				if (row < 8) {
+					col = -1;
+					row++;
+				}
+			}
+			col++;
+			if(solveRec(s, row, col)) {
+				return true;
+			}else {
+				row = staticrow;
+				col = staticcol;
+			}
 		}
-  
-		return true;
+
+		return false;
 	}
 
+	/**
+	 * skapar vårt sudoku från gui
+	 * @param panel
+	 * @param s
+	 */
   public static void createSudoku(JPanel panel, Sudoku s) {
 	  int x = 0;
 	  int y = 0;
@@ -80,8 +127,7 @@ public class Solver {
 				
 				try {
 					i = Integer.parseInt(textf.getText());
-				}
-				catch(Exception e) {
+				} catch(Exception e) {
 					if(i != -1)
 						System.out.println("One or more values are invalid, they will be ignored.");
 				}
@@ -92,15 +138,19 @@ public class Solver {
 			}
 		}
 		
-		
 		//löser sudokut
-		Solver.solve(s);
-		s.print();
-		
-		//skruver ut det i rutorna
-		Solver.matrixtopanels(panel, s);
+		if(Solver.solve(s)) {
+			//skruver ut det i rutorna
+			Solver.matrixtopanels(panel, s);
+			s.print();
+		}
 	}
   
+  /**
+   * sätter in det lösta sudokut i gui
+   * @param panel
+   * @param s
+   */
 	private static void matrixtopanels(JPanel panel, Sudoku s) {
 		int x = 0;
 		int y = 0;
@@ -116,7 +166,7 @@ public class Solver {
 				if(y % 9 == 0 && y != 0) {
 					y = 0;
 				}
-				textf.setText(Integer.toString(s.getMatrix()[x][y]));
+				textf.setText(Integer.toString(s.getMatrix()[y][x]));
 
 				x++;
 			}
@@ -124,6 +174,10 @@ public class Solver {
 		
 	}
 
+	/**
+	 * tar bort alla värden i sudokut.
+	 * @param sudPanel
+	 */
 	public static void clearSudoku(JPanel sudPanel) {
 		for(Component comp : sudPanel.getComponents()) {
 			if(comp instanceof JTextField) {
