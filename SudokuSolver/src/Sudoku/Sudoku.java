@@ -37,9 +37,6 @@ public class Sudoku {
 		//kollar 
 		if(checkAll(val, col, row) && val > 0 && val < 10 && col > -1 && col < 10 && row > -1 && row < 10)
 			matrix[row][col] = val;
-		else
-			if(val != -1);
-				//System.out.println("One or more values are invalid, they will be ignored.");
 	}
 	
 	/**

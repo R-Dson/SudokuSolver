@@ -169,7 +169,7 @@ public class Solver {
 		if(checkmatrixisempty(s)) {
 			return;
 		}
-
+    
 		//löser sudokut
 		if(Solver.solve(s)) {
 			//skruver ut det i rutorna
