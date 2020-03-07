@@ -62,7 +62,6 @@ public class GuiBuilder {
 				}
 			}
 			
-			
 		}
 		
 		//lägger till "sudokut" till rutan

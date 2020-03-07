@@ -123,6 +123,7 @@ public class Solver {
 	 * @param s
 	 */
   public static void createSudoku(JPanel panel, Sudoku s) {
+	  s.resetSudoku();
 	  int x = 0;
 	  int y = 0;
 		for(Component comp : panel.getComponents()) {
@@ -137,7 +138,7 @@ public class Solver {
 				if(y % 9 == 0 && y != 0) {
 					y = 0;
 				}
-				//System.out.println(x + " " + y);
+
 				int i = -1;
 				
 				try {
