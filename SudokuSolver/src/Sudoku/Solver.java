@@ -2,8 +2,11 @@ package Sudoku;
 
 import java.awt.Component;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import com.sun.jdi.InvalidTypeException;
 
 public class Solver {
 
@@ -121,11 +124,13 @@ public class Solver {
 	 * skapar vårt sudoku från gui
 	 * @param panel
 	 * @param s
+	 * @throws InvalidTypeException 
 	 */
   public static void createSudoku(JPanel panel, Sudoku s) {
 	  s.resetSudoku();
 	  int x = 0;
 	  int y = 0;
+	  boolean test = true;
 		for(Component comp : panel.getComponents()) {
 			if(comp instanceof JTextField) {
 				
@@ -143,9 +148,13 @@ public class Solver {
 				
 				try {
 					i = Integer.parseInt(textf.getText());
+					if(i > 9 || i < 1 && test) {
+						test = false;
+					}
 				} catch(Exception e) {
-					if(i != -1)
-						System.out.println("One or more values are invalid, they will be ignored.");
+					if(!textf.getText().isBlank()) {
+						test = false;
+					}
 				}
 				
 				s.setValuexy(y, x, i);
@@ -153,16 +162,19 @@ public class Solver {
 				x++;
 			}
 		}
-		
+		if(test == false) {
+			JOptionPane.showMessageDialog(panel, "One or more values are invalid");
+			return;
+		}
 		if(checkmatrixisempty(s)) {
 			return;
 		}
-		
+    
 		//löser sudokut
 		if(Solver.solve(s)) {
 			//skruver ut det i rutorna
 			Solver.matrixtopanels(panel, s);
-			s.print();
+			//s.print();
 		}
 	}
   
