@@ -166,15 +166,13 @@ public class Solver {
 			JOptionPane.showMessageDialog(panel, "One or more values are invalid");
 			return;
 		}
-		if(checkmatrixisempty(s)) {
-			return;
-		}
-    
 		//löser sudokut
 		if(Solver.solve(s)) {
 			//skruver ut det i rutorna
 			Solver.matrixtopanels(panel, s);
 			//s.print();
+		}else {
+			JOptionPane.showMessageDialog(panel, "Sudoku not solvable");
 		}
 	}
   
@@ -198,7 +196,7 @@ public class Solver {
 				if(y % 9 == 0 && y != 0) {
 					y = 0;
 				}
-				textf.setText(Integer.toString(s.getMatrix()[y][x]));
+				textf.setText(Integer.toString(s.getValuexy(y, x)));
 
 				x++;
 			}
@@ -209,6 +207,7 @@ public class Solver {
 	/**
 	 * tar bort alla värden i sudokut.
 	 * @param sudPanel
+	 * @param s
 	 */
 	public static void clearSudoku(JPanel sudPanel, Sudoku s) {
 		for(Component comp : sudPanel.getComponents()) {
