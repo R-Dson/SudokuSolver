@@ -2,17 +2,13 @@ package Sudoku;
 
 public class Start {
 
+	/**
+	 * startar programmet
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		Sudoku s = new Sudoku();
-
-		Solver.solve(s);
-    //bygger gui innan vi löser det
+		//bygger gui
 		GuiBuilder gb = new GuiBuilder();
-		
-		if(Solver.solve(s)) {
-			s.print();
-		}
-    
 	}
 
 }

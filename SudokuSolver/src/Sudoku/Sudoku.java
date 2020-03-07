@@ -6,48 +6,13 @@ public class Sudoku {
 	private int[][] matrix = new int[9][9];
 	
 	/**
-	 * Comment
+	 * Grunden till sudokut
 	 */
 	public Sudoku() {
-		for(int[] a : matrix) {
+		resetSudoku();
+		for (int[] a : matrix) {
 			Arrays.fill(a, -1);
 		}
-		//remove later
-		//x och y är från 0 till 8, värdet är 1 till 9 som sudoku ska vara.
-		//saknar lösning
-		setValuexy(2, 0, 8);
-		setValuexy(5, 0, 9);
-		setValuexy(7, 0, 6);
-		setValuexy(8, 0, 2);
-		
-		setValuexy(3, 1, 5);
-		
-		setValuexy(0, 2, 1);
-		setValuexy(2, 2, 2);
-		setValuexy(3, 2, 5);
-		
-		setValuexy(3, 3, 2);
-		setValuexy(4, 3, 1);
-		setValuexy(7, 3, 9);
-
-		setValuexy(1, 4, 5);
-		setValuexy(6, 4, 6);
-		
-		setValuexy(0, 5, 6);
-		setValuexy(7, 5, 2);
-		setValuexy(8, 5, 8);
-		
-		setValuexy(0, 6, 4);
-		setValuexy(1, 6, 1);
-		setValuexy(3, 6, 6);
-		setValuexy(5, 6, 8);
-		
-		setValuexy(0, 7, 8);
-		setValuexy(1, 7, 6);
-		setValuexy(4, 7, 3);
-		setValuexy(6, 7, 1);
-		
-		setValuexy(6, 8, 4);
 	}
 	
 
@@ -69,15 +34,36 @@ public class Sudoku {
 	 * @return
 	 */
 	public void setValuexy (int row, int col, int val){
+		//kollar 
+		if(checkAll(val, col, row) && val > 0 && val < 10 && col > -1 && col < 10 && row > -1 && row < 10)
 			matrix[row][col] = val;
+		else
+			if(val != -1);
+				//System.out.println("One or more values are invalid, they will be ignored.");
 	}
 	
+	/**
+	 * checkar så att 
+	 * @param value
+	 * @param col
+	 * @param row
+	 * @return
+	 */
 	public boolean checkAll(int value, int col, int row) {
 		if(checkRow(value, row) && checkColumn(value, col) && checkSquare(value, col, row)) {
 			return true;
 		}else {
 			return false;
 		}
+	}
+	
+	/**
+	 * sätter ett värde till -1
+	 * @param row
+	 * @param col
+	 */
+	public void resetValuexy(int row, int col) {
+		matrix[row][col] = -1;
 	}
 	
 	/**
@@ -88,6 +74,9 @@ public class Sudoku {
 		return matrix;
 	}
 	
+	/**
+	 * skriver ut matrisen i terminalen
+	 */
 	public void print() {
 		for(int row = 0; row < matrix.length; row++) {
 			for(int col = 0; col < matrix.length; col++) {
@@ -105,6 +94,9 @@ public class Sudoku {
 		}
 	}
   
+	/*
+	 * kollar raden
+	 */
 	public boolean checkRow(int number, int row) {
 		int occ = 0;
 		for (int i = 0; i < matrix.length; i++) {
@@ -119,7 +111,7 @@ public class Sudoku {
 	}
 	
 	/**
-	 * 
+	 * kollar kolumnen
 	 * @param matrix
 	 * @param number
 	 * @param col
@@ -141,7 +133,6 @@ public class Sudoku {
 	
 	/**
 	 * Return sant om numret existerar inom en kvadrat
-	 * 
 	 * @param matrix
 	 * @param number
 	 * @param col
@@ -154,8 +145,6 @@ public class Sudoku {
 		int occ = 0;
 		int x = row / 3;
 		int y = col / 3;
-		// System.out.println(x);
-		// System.out.println(y);
 		for (int i = y * 3; i < 3 * (y + 1); i++) {
 			for (int j = x * 3; j < 3 * (x + 1); j++) {
 				if (matrix[j][i] == number) {
@@ -168,5 +157,11 @@ public class Sudoku {
 		}
 
 		return true;
+	}
+	
+	public void resetSudoku() {
+		for (int[] a : matrix) {
+			Arrays.fill(a, -1);
+		}
 	}
 }
