@@ -37,6 +37,21 @@ public class Solver {
 
 	}
 	
+	private static boolean checkmatrixisempty(Sudoku s) {
+		int count = 0;
+		  for(int y = 0; y < 9; y++) {
+			  for(int x = 0; x < 9; x++) {
+				  if(s.getValuexy(x, y) == -1) {
+					  count++;
+				  }
+			  }
+		  }
+		  if(count == 81) {
+			  return true;
+		  }
+		  return false;
+	  }
+	
 	/**
 	 * vår Rekursiv algoritm
 	 * @param s
@@ -138,6 +153,10 @@ public class Solver {
 			}
 		}
 		
+		if(checkmatrixisempty(s)) {
+			return;
+		}
+		
 		//löser sudokut
 		if(Solver.solve(s)) {
 			//skruver ut det i rutorna
@@ -178,13 +197,14 @@ public class Solver {
 	 * tar bort alla värden i sudokut.
 	 * @param sudPanel
 	 */
-	public static void clearSudoku(JPanel sudPanel) {
+	public static void clearSudoku(JPanel sudPanel, Sudoku s) {
 		for(Component comp : sudPanel.getComponents()) {
 			if(comp instanceof JTextField) {
 				JTextField textf = (JTextField)comp;
 				textf.setText("");
 			}
 		}
+		s.resetSudoku();
 	}
 
 

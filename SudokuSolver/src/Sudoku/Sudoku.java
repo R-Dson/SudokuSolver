@@ -9,6 +9,7 @@ public class Sudoku {
 	 * Grunden till sudokut
 	 */
 	public Sudoku() {
+		resetSudoku();
 		for (int[] a : matrix) {
 			Arrays.fill(a, -1);
 		}
@@ -156,5 +157,11 @@ public class Sudoku {
 		}
 
 		return true;
+	}
+	
+	public void resetSudoku() {
+		for (int[] a : matrix) {
+			Arrays.fill(a, -1);
+		}
 	}
 }

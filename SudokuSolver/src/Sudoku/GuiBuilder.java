@@ -80,7 +80,7 @@ public class GuiBuilder {
 		pane.add(bottomPanel, BorderLayout.SOUTH);
 		
 		bsolve.addActionListener(e -> Solver.createSudoku(sudPanel, s));
-		bclear.addActionListener(e -> Solver.clearSudoku(sudPanel));
+		bclear.addActionListener(e -> Solver.clearSudoku(sudPanel, s));
 		
 		frame.pack();
 		//gör den synlig efter den är byggd
