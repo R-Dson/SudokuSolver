@@ -2,20 +2,22 @@ package Sudoku;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 class SudokuTest {
 	private Sudoku s = new Sudoku();
 		
+	//testar att lösa ett tomt sudoku
 	@Test
 	void solveEmpty() {
-		assertTrue(Solver.solve(s));
+		Solver solver = new Solver();
+		assertTrue(solver.solve(s));
 	}
 	
+	//testar att lösa sudokut i figur 1
 	@Test
 	void solveSudokuFig1() {
+		Solver solver = new Solver();
 		s.setValuexy(0, 2, 8);
 		s.setValuexy(0, 5, 9);
 		s.setValuexy(0, 7, 6);
@@ -41,15 +43,17 @@ class SudokuTest {
 		s.setValuexy(7, 4, 3);
 		s.setValuexy(7, 6, 1);
 		s.setValuexy(8, 6, 4);
-		Solver.solve(s);
+		solver.solve(s);
 		s.print();
 	}
 	
+	//testar att lösa ett olösligt sudoku
 	@Test 
 	void solveNonSolveable() {
+		Solver solver = new Solver();
 		s.setValuexy(4, 4, 1);
 		s.setValuexy(5, 5, 1);
-		assertFalse(Solver.solve(s));
+		assertFalse(solver.solve(s));
 	}
 
 }
