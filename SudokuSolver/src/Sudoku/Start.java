@@ -16,7 +16,8 @@ public class Start {
 		
 		//lägger till ett event på solve knappen
 		gb.addActionSolve(e -> {
-			gb.panelToMatrix();
+			if(!gb.panelToMatrix())
+				return;
 			//solver.solves(s);
 			
 			//om det är löst skriver vi ut det i gui

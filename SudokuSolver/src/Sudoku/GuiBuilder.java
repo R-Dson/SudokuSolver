@@ -148,7 +148,7 @@ public class GuiBuilder {
 	/**
 	 * Tar värdena från gui och plaserar de i sudokut
 	 */
-	public void panelToMatrix() {
+	public boolean panelToMatrix() {
 		s.resetSudoku();
 		int x = 0;
 		int y = 0;
@@ -190,8 +190,9 @@ public class GuiBuilder {
 		
 		if(test == false) {
 			errorMessage("One or more values are invalid");
-			return;
+			return false;
 		}
+		return true;
 	}
 	
 	/**
