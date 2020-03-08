@@ -1,22 +1,13 @@
 package Sudoku;
 
-import java.awt.Component;
-
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import com.sun.jdi.InvalidTypeException;
-
 public class Solver {
-
+	
 	/**
 	 * Lösningen av sudokut
 	 * @param s
 	 * @return
 	 */
-	public static boolean solve(Sudoku s) {
-
+	public boolean solve(Sudoku s) {
 		// går igenom hela från 0 till 9
 		boolean firsttest = true;
 		for (int i = 1; i <= 9; i++) {
@@ -40,21 +31,6 @@ public class Solver {
 
 	}
 	
-	private static boolean checkmatrixisempty(Sudoku s) {
-		int count = 0;
-		  for(int y = 0; y < 9; y++) {
-			  for(int x = 0; x < 9; x++) {
-				  if(s.getValuexy(x, y) == -1) {
-					  count++;
-				  }
-			  }
-		  }
-		  if(count == 81) {
-			  return true;
-		  }
-		  return false;
-	  }
-	
 	/**
 	 * vår Rekursiv algoritm
 	 * @param s
@@ -62,7 +38,7 @@ public class Solver {
 	 * @param col
 	 * @return
 	 */
-	private static boolean solveRec(Sudoku s, int row, int col) {
+	private boolean solveRec(Sudoku s, int row, int col) {
 		int staticrow = row;
 		int staticcol = col;
 		
@@ -119,106 +95,4 @@ public class Solver {
 
 		return false;
 	}
-
-	/**
-	 * skapar vårt sudoku från gui
-	 * @param panel
-	 * @param s
-	 * @throws InvalidTypeException 
-	 */
-  public static void createSudoku(JPanel panel, Sudoku s) {
-	  s.resetSudoku();
-	  int x = 0;
-	  int y = 0;
-	  boolean test = true;
-		for(Component comp : panel.getComponents()) {
-			if(comp instanceof JTextField) {
-				
-				JTextField textf = (JTextField)comp;
-				
-				if(x % 9 == 0 && x != 0) {
-					y++;
-					x = 0;
-				}
-				if(y % 9 == 0 && y != 0) {
-					y = 0;
-				}
-
-				int i = -1;
-				
-				try {
-					i = Integer.parseInt(textf.getText());
-					if(i > 9 || i < 1 && test) {
-						test = false;
-					}
-				} catch(Exception e) {
-					if(!textf.getText().isBlank()) {
-						test = false;
-					}
-				}
-				
-				s.setValuexy(y, x, i);
-
-				x++;
-			}
-		}
-		if(test == false) {
-			JOptionPane.showMessageDialog(panel, "One or more values are invalid");
-			return;
-		}
-		//löser sudokut
-		if(Solver.solve(s)) {
-			//skruver ut det i rutorna
-			Solver.matrixtopanels(panel, s);
-			//s.print();
-		}else {
-			JOptionPane.showMessageDialog(panel, "Sudoku not solvable");
-		}
-	}
-  
-  /**
-   * sätter in det lösta sudokut i gui
-   * @param panel
-   * @param s
-   */
-	private static void matrixtopanels(JPanel panel, Sudoku s) {
-		int x = 0;
-		int y = 0;
-		for(Component comp : panel.getComponents()) {
-			if(comp instanceof JTextField) {
-				
-				JTextField textf = (JTextField)comp;
-				
-				if(x % 9 == 0 && x != 0) {
-					y++;
-					x = 0;
-				}
-				if(y % 9 == 0 && y != 0) {
-					y = 0;
-				}
-				textf.setText(Integer.toString(s.getValuexy(y, x)));
-
-				x++;
-			}
-		}
-		
-	}
-
-	/**
-	 * tar bort alla värden i sudokut.
-	 * @param sudPanel
-	 * @param s
-	 */
-	public static void clearSudoku(JPanel sudPanel, Sudoku s) {
-		for(Component comp : sudPanel.getComponents()) {
-			if(comp instanceof JTextField) {
-				JTextField textf = (JTextField)comp;
-				textf.setText("");
-			}
-		}
-		s.resetSudoku();
-	}
-
-
-
 }

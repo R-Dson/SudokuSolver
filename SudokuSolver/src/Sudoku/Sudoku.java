@@ -59,13 +59,12 @@ public class Sudoku {
 	
 	/**
 	 * sätter ett värde till -1
-	 * @param row
-	 * @param col
+	 * @param row, raden
+	 * @param col, kolumnen
 	 */
 	public void resetValuexy(int row, int col) {
 		matrix[row][col] = -1;
 	}
-	
 	
 	/**
 	 * skriver ut matrisen i terminalen
@@ -87,8 +86,11 @@ public class Sudoku {
 		}
 	}
   
-	/*
+	/**
 	 * kollar raden
+	 * @param number
+	 * @param row
+	 * @return
 	 */
 	public boolean checkRow(int number, int row) {
 		int occ = 0;
@@ -105,9 +107,8 @@ public class Sudoku {
 	
 	/**
 	 * kollar kolumnen
-	 * @param matrix
-	 * @param number
-	 * @param col
+	 * @param number, talet som ska kollas
+	 * @param col, kolumnen som ska kollas 
 	 * @return
 	 */
 	public boolean checkColumn(int number, int col) {
@@ -124,14 +125,13 @@ public class Sudoku {
 		return true;
 	}
 	
-	/**
-	 * Return sant om numret existerar inom en kvadrat
-	 * @param matrix
-	 * @param number
-	 * @param col
-	 * @param row
-	 * @return
-	 */
+	 /**
+	  * Return sant om numret existerar inom en kvadrat
+	  * @param number värdet som ska kollas
+	  * @param col vilken kolumn
+	  * @param row vilken rad
+	  * @return sant om det går annars falsk
+	  */
 	public boolean checkSquare(int number, int col, int row) {
 		// x är vilken kvadrat vi ska kolla och y är vilken höjd kvadraten är i. Från 0
 		// till 2
@@ -152,6 +152,9 @@ public class Sudoku {
 		return true;
 	}
 	
+	/**
+	 * fyller sudokut med -1
+	 */
 	public void resetSudoku() {
 		for (int[] a : matrix) {
 			Arrays.fill(a, -1);
