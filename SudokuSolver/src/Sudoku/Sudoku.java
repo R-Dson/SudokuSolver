@@ -17,9 +17,9 @@ public class Sudoku {
 	
 
 	/**
-	 * returnerar värdet i x, y
-	 * @param x
-	 * @param y
+	 * returnerar värdet i sudokut på platsen [row][col]
+	 * @param row
+	 * @param col
 	 * @return
 	 */
 	public int getValuexy (int row, int col){
@@ -27,9 +27,9 @@ public class Sudoku {
 	}
 	
 	/**
-	 * Returns true if value was added to matrix, else false
-	 * @param x
-	 * @param y
+	 * om värdet är tillåtet ändras värdet i sudokut på platsen [row][col]
+	 * @param row
+	 * @param col
 	 * @param val
 	 * @return
 	 */
@@ -39,11 +39,10 @@ public class Sudoku {
 			matrix[row][col] = val;
 		else
 			if(val != -1);
-				//System.out.println("One or more values are invalid, they will be ignored.");
 	}
 	
 	/**
-	 * checkar så att 
+	 * checkar så att placeringen av värdet följer sudokus regler
 	 * @param value
 	 * @param col
 	 * @param row
@@ -87,7 +86,7 @@ public class Sudoku {
 	}
   
 	/**
-	 * kollar raden
+	 * kollar så att raden följer sudokus regler
 	 * @param number
 	 * @param row
 	 * @return
@@ -97,7 +96,7 @@ public class Sudoku {
 		for (int i = 0; i < matrix.length; i++) {
 			if (matrix[row][i] == number) {
 				occ++;
-				if (occ >= 2) {
+				if (occ >= 2) { //om samma siffra existerar på samma rad 2 gånger så returneras false
 					return false;
 				}
 			}
@@ -106,7 +105,7 @@ public class Sudoku {
 	}
 	
 	/**
-	 * kollar kolumnen
+	 * kollar så att kolumnen följer sudokus regler
 	 * @param number, talet som ska kollas
 	 * @param col, kolumnen som ska kollas 
 	 * @return
@@ -116,9 +115,8 @@ public class Sudoku {
 		for (int i = 0; i < matrix.length; i++) {
 			if (matrix[i][col] == number) {
 				occ++;
-				if (occ >= 2) {
+				if (occ >= 2) { //om samma siffra existerar på samma kolumn 2 gånger så returneras false
 					return false;
-
 				}
 			}
 		}
@@ -133,8 +131,6 @@ public class Sudoku {
 	  * @return sant om det går annars falsk
 	  */
 	public boolean checkSquare(int number, int col, int row) {
-		// x är vilken kvadrat vi ska kolla och y är vilken höjd kvadraten är i. Från 0
-		// till 2
 		int occ = 0;
 		int x = row / 3;
 		int y = col / 3;
@@ -142,7 +138,7 @@ public class Sudoku {
 			for (int j = x * 3; j < 3 * (x + 1); j++) {
 				if (matrix[j][i] == number) {
 					occ++;
-					if (occ == 2) {
+					if (occ == 2) { //om samma siffra existerar inom rutan 2 gånger så returneras false
 						return false;
 					}
 				}

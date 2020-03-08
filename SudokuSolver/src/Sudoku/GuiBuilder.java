@@ -17,8 +17,9 @@ public class GuiBuilder {
 	private JButton bsolve;
 	
 	/**
-	 * skapar guin
-	 */
+	* Skapar guin
+	* @param s
+	*/
 	public GuiBuilder(Sudoku s) {
 		
 		this.s = s;

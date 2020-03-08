@@ -7,12 +7,14 @@ import org.junit.jupiter.api.Test;
 class SudokuTest {
 	private Sudoku s = new Sudoku();
 		
+	//testar att lösa ett tomt sudoku
 	@Test
 	void solveEmpty() {
 		Solver solver = new Solver();
 		assertTrue(solver.solve(s));
 	}
 	
+	//testar att lösa sudokut i figur 1
 	@Test
 	void solveSudokuFig1() {
 		Solver solver = new Solver();
@@ -45,6 +47,7 @@ class SudokuTest {
 		s.print();
 	}
 	
+	//testar att lösa ett olösligt sudoku
 	@Test 
 	void solveNonSolveable() {
 		Solver solver = new Solver();
