@@ -1,7 +1,7 @@
 package Sudoku;
 
 public class Solver {
-
+	
 	/**
 	 * Lösningen av sudokut
 	 * 
@@ -22,7 +22,7 @@ public class Solver {
 		return solveRec(s, 0, 0); // om alla inputs följer reglerna så försöker vi lösa sudokut
 
 	}
-
+  
 	/**
 	 * vår Rekursiv algoritm
 	 * 
@@ -88,5 +88,4 @@ public class Solver {
 
 		return false; //om det inte ännu returnerat true så går det inte att lösa; returnera false
 	}
-
 }
